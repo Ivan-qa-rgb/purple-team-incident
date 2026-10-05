@@ -1,0 +1,27 @@
+title: SMB Admin Share Access
+id: c9d0e1f2-a3b4-5678-2345-789012345678
+status: experimental
+description: Detects access to administrative SMB shares from unusual sources.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4624
+    LogonType: '3'  # Network
+  admin_share:
+    ShareName|contains:
+      - 'C$'
+      - 'ADMIN$'
+      - 'IPC$'
+  condition: selection and admin_share
+falsepositives:
+  - Legitimate administrative access.
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002
