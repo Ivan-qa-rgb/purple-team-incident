@@ -1,0 +1,25 @@
+title: Kerberoasting Activity
+id: e5f6a7b8-c9d0-1234-ef01-345678901234
+status: experimental
+description: Detects potential Kerberoasting activity based on TGS requests.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+logsource:
+  category: application
+  product: active_directory
+detection:
+  selection:
+    EventID: 4769
+  encryption:
+    EncryptionType: '0x17'  # RC4
+  multiple_requests:
+    FailureCode: '0x0'
+  condition: selection and encryption and multiple_requests
+falsepositives:
+  - Legacy applications using RC4 encryption.
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1558.003
