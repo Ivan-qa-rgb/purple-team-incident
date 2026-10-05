@@ -1,0 +1,55 @@
+name: Purple Team Exercise
+description: Запланировать учение Purple Team
+title: "[Purple Exercise]: "
+labels: ["purple-team", "exercise"]
+assignees: []
+
+body:
+  - type: input
+    id: scenario
+    attributes:
+      label: Сценарий
+      placeholder: "Ransomware через SharePoint"
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Тип учения
+      options:
+        - Tabletop
+        - Technical
+        - Red/Blue
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Планируемая дата
+      placeholder: "2026-02-01"
+    validations:
+      required: true
+  - type: textarea
+    id: objectives
+    attributes:
+      label: Цели учения
+      placeholder: |
+        - Проверить детект на T1190
+        - Отработать response на T1562.001
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope (что в рамках, что вне)
+    validations:
+      required: true
+  - type: checkboxes
+    id: approvals
+    attributes:
+      label: Подтверждения
+      options:
+        - label: Legal уведомлён
+          required: true
+        - label: Scope согласован с владельцами систем
+          required: true
