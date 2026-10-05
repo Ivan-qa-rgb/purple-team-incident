@@ -1,0 +1,29 @@
+title: New OAuth Application Registered
+id: c3d4e5f6-a7b8-9012-cdef-123456789012
+status: experimental
+description: Detects registration of new OAuth applications in Entra ID / Azure AD.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1098/001/
+logsource:
+  category: application
+  product: azure
+detection:
+  selection:
+    OperationName:
+      - 'Add service principal'
+      - 'Add application'
+      - 'Consent to application'
+  high_privilege:
+    Properties|contains:
+      - 'Mail.Read'
+      - 'Files.Read.All'
+      - 'Directory.Read.All'
+  condition: selection and high_privilege
+falsepositives:
+  - Legitimate application registration by IT team.
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1098.001
