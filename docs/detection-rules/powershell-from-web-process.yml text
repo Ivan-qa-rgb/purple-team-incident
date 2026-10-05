@@ -1,0 +1,30 @@
+title: PowerShell Script Block from Web Process
+id: d4e5f6a7-b8c9-0123-def0-234567890123
+status: experimental
+description: Detects PowerShell script block logging from web server processes.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith:
+      - '\\w3wp.exe'
+      - '\\httpd.exe'
+      - '\\nginx.exe'
+  powershell:
+    Image|endswith:
+      - '\\powershell.exe'
+      - '\\pwsh.exe'
+  scriptblock:
+    EventID: 4104
+  condition: selection and powershell and scriptblock
+falsepositives:
+  - Legitimate PowerShell scripts executed by web applications.
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
