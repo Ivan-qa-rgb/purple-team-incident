@@ -1,0 +1,29 @@
+title: VSS Delete Shadow Copies
+id: d0e1f2a3-b4c5-6789-3456-890123456789
+status: experimental
+description: Detects deletion of shadow copies, often associated with ransomware.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1490/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\\vssadmin.exe'
+      - '\\wmic.exe'
+      - '\\powershell.exe'
+  delete_command:
+    CommandLine|contains:
+      - 'delete shadows'
+      - 'delete catalog'
+      - 'Resize-Partition'
+  condition: selection and delete_command
+falsepositives:
+  - Legitimate backup maintenance.
+level: high
+tags:
+  - attack.impact
+  - attack.t1490
