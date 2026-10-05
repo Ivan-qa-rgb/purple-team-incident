@@ -1,0 +1,35 @@
+title: EDR Disable Attempt
+id: b8c9d0e1-f2a3-4567-1234-678901234567
+status: experimental
+description: Detects attempts to disable or modify EDR agents.
+author: Your Name
+date: 2026/01/08
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith:
+      - '\\sc.exe'
+      - '\\net.exe'
+      - '\\powershell.exe'
+  stop_service:
+    CommandLine|contains:
+      - 'stop'
+      - 'disable'
+      - 'delete'
+  edr_service:
+    CommandLine|contains:
+      - 'edr'
+      - 'defender'
+      - 'sentinel'
+      - 'carbon'
+  condition: selection and stop_service and edr_service
+falsepositives:
+  - Legitimate maintenance of security tools.
+level: critical
+tags:
+  - attack.defense_evasion
+  - attack.t1562.001
