@@ -1,0 +1,56 @@
+name: Exercise Report
+description: Отчёт по итогам учения Purple Team
+title: "[Exercise Report]: "
+labels: ["purple-team", "report"]
+assignees: []
+
+body:
+  - type: input
+    id: exercise_id
+    attributes:
+      label: ID учения
+      placeholder: "Ссылка на issue с планированием"
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Результаты
+      placeholder: |
+        - Техники выполнены: ...
+        - Техники обнаружены: ...
+        - MTTD: ...
+        - MTTC: ...
+    validations:
+      required: true
+  - type: textarea
+    id: what_worked
+    attributes:
+      label: Что сработало
+    validations:
+      required: true
+  - type: textarea
+    id: what_didnt_work
+    attributes:
+      label: Что не сработало
+    validations:
+      required: true
+  - type: textarea
+    id: new_rules
+    attributes:
+      label: Новые правила
+      placeholder: "Ссылки на PR с Sigma-правилами"
+    validations:
+      required: false
+  - type: textarea
+    id: playbook_updates
+    attributes:
+      label: Обновления playbook
+    validations:
+      required: false
+  - type: textarea
+    id: next_steps
+    attributes:
+      label: Следующие шаги
+    validations:
+      required: true
